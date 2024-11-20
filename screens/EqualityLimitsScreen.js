@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,8 +11,20 @@ import {
   Image,
 } from "react-native";
 import QuestionsLimits from "../components/QuestionLimits";
+import * as Font from "expo-font";
 
 const EqualityLimitsScreen = ({ navigation }) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      'Nunito': require("../assets/fonts/NunitoRegular.ttf"),
+      "Nunito-Bold": require("../assets/fonts/NunitoBold.ttf"),
+    }).then(() => setFontLoaded(true));
+  }, []);
+
+  if (!fontLoaded) return null; // Render nothing until the font is loaded
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -22,12 +34,12 @@ const EqualityLimitsScreen = ({ navigation }) => {
         }}
       >
         <TouchableOpacity
-          style={styles.logo}
+          style={styles.LogoPosition}
           onPress={() => navigation.navigate("HomePage")}
         >
           <Image
             source={require("../assets/irieya.png")}
-            style={styles.profileImg}
+            style={styles.Logo}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -46,11 +58,9 @@ const EqualityLimitsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
-  scrollContainer: {
-    padding: 20,
-    alignItems: "center",
-  },
+
   qaBox: {
     marginBottom: 10,
     padding: 10,
@@ -59,35 +69,33 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#f9f9f9",
   },
-  profileImg: {
-    height: 80,
-    width: 80,
-    borderRadius: 40,
+  Logo: {
+    height: 100,
+    width: 100,
   },
-  logo: {
+  LogoPosition: {
     marginBottom: 20,
-    left:-120,
-    top:120,
+    left: -120,
+    top: 100,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 22,
     color: "#333",
-    marginBottom: 20,
-    textTransform: "uppercase",
-    textDecorationLine: "underline",
-    left: 45,
+    letterSpacing: 1,
+    padding: 10,
+    fontFamily: "Nunito-Bold",
+    left: 50,
+    top: -40,
   },
   button2: {
     backgroundColor: "#B57BF9",
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 90,
     top: -60,
-    zIndex: 1,
   },
   buttonText: {
     color: "#fff",

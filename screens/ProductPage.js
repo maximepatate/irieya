@@ -44,7 +44,7 @@ const ProductScreen = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate("SubRegle")}
+          onPress={() => navigation.navigate("Hygiene")}
         >
           <Text style={styles.buttonText}>retour</Text>
         </TouchableOpacity>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#B57BF9",
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 90,

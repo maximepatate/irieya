@@ -53,8 +53,8 @@ const ConnectPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/irieya_logo_transparent.png")}
-        style={styles.profileImg}
+        source={require("../assets/irieya.png")}
+        style={styles.logo}
       />
       <TextInput
         placeholder="email"
@@ -82,11 +82,6 @@ const ConnectPage = ({ navigation }) => {
         <Text style={styles.buttonText}>créer un compte</Text>
       </TouchableOpacity>
 
-      <Button
-        title="modérateur"
-        onPress={() => navigation.navigate("HomePage")}
-      />
-
     </View>
   );
 };
@@ -96,6 +91,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    backgroundColor: "#FFFFFF",
+
   },
 
   textInput: {
@@ -106,16 +103,16 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "60%",
   },
-  profileImg: {
-    height: 150,
-    width: 150,
-    borderRadius: 75,
+  logo: {
+    height: 200,
+    width: 200,
+    borderRadius: 100,
   },
   button1: {
     backgroundColor: "#B57BF9", // Blue color for the button
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "30%",
     alignItems: "center",
     left: -90,
@@ -126,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#B57BF9", 
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 90,

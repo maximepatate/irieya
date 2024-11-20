@@ -130,23 +130,24 @@ const AppWrapperHygiene = () => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
+    padding: 20,
   },
   qaBox: {
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
     backgroundColor: '#f9f9f9',
   },
   question: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 20,
     fontFamily: "Nunito-Bold",
   },
   answer: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 20,
     fontFamily: "Nunito",
   },
   button: {
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#B57BF9',
     padding: 2,
-    borderRadius: 5,
+    borderRadius: 20,
     width: 80,
     alignItems: 'center',
     alignSelf:"center",

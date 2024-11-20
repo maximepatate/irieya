@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import * as Font from "expo-font";
 
 const QuestionSexism = () => {
   // Sample question and answer data
@@ -16,13 +17,13 @@ const QuestionSexism = () => {
           {"\n"}Lorsque le monde estime qu’en tant que femme, il serait honteux de dépasser un certain poids, une certaine taille, une pointure, 
           ou une quantité de poils. Lorsque, lors d’un événement, il est attendu que seules les jeunes filles contribuent au service. 
           
-          {"\n\n"}    Comme la féministe Chimamanda Ngozi Adichie {"\n"}    l’a dit :
+          {"\n\n"}    Comme la féministe Chimamanda Ngozi Adichie l’a dit :
           {"\n\n"}    “We raise girls to see each other as competitors, 
           {"\n\n"}    Not for jobs or for accomplishments 
           {"\n\n"}    Which I think can be a good thing, 
           {"\n\n"}    But for the attention of men”
           {"\n\n"}
-          {"\n\n"}    [Nous élevons les filles pour qu'elles se considèrent {"\n"}    comme des concurrentes,
+          {"\n\n"}    [Nous élevons les filles pour qu'elles se  considèrent comme des concurrentes,
           {"\n\n"}    Pas pour les emplois ou les accomplissements,
           {"\n\n"}    Ce qui je pense est une bonne chose, 
           {"\n\n"}    Mais pour l’attention des hommes.]
@@ -76,7 +77,7 @@ const QuestionSexism = () => {
   };
 
   return (
-    <ScrollView>
+
     <View style={styles.container}>
       {qaItems.map((item) => (
         <View key={item.id} style={styles.qaBox}>
@@ -96,31 +97,49 @@ const QuestionSexism = () => {
         </View>
       ))}
     </View>
-    </ScrollView>
+
   );
+};
+
+const AppWrapperSexism = () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      'Nunito': require("../assets/fonts/NunitoRegular.ttf"),
+      "Nunito-Bold": require("../assets/fonts/NunitoBold.ttf"),
+    }).then(() => setFontLoaded(true));
+  }, []);
+
+  if (!fontLoaded) return null; // Render nothing until font is loaded
+
+  return <QuestionSexism />; // Render the main component after fonts are loaded
 };
 
 const styles = StyleSheet.create({
 
-  scrollContainer: {
-    marginBottom:20,
+  container: {
+    marginBottom:30,
+
   },
   qaBox: {
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
     backgroundColor: '#f9f9f9',
+    top:40,
   },
   question: {
     fontSize: 16,
-    marginBottom: 5,
-    fontWeight: 'bold',
-  },
+    marginBottom: 20,
+    fontFamily: "Nunito-Bold",
+    },
   answer: {
     fontSize: 16,
     marginBottom: 5,
+    fontFamily: "Nunito",
   },
   button: {
     color: '#007bff',
@@ -130,7 +149,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#B57BF9',
     padding: 2,
-    borderRadius: 5,
+    borderRadius: 20,
     width: 80,
     alignItems: 'center',
     alignSelf:"center",
@@ -143,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuestionSexism;
+export default AppWrapperSexism;

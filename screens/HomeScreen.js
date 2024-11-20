@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.regle, styles.randomPosition1]}
-        onPress={() => navigation.navigate("SubRegle")}
+        onPress={() => navigation.navigate("Hygiene")}
       >
         <View style={styles.profileImg}>
           <Image
@@ -54,7 +54,7 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
       <View style={[styles.centeredImage]}>
         <Image
-          source={require("../assets/irieya_logo_transparent.png")}
+          source={require("../assets/irieya.png")}
           style={styles.logo}
         />
       </View>

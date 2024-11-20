@@ -73,26 +73,22 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     letterSpacing: 1,
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
     fontFamily: "Nunito-Bold",
     left: 30,
     top: -40,
-    zIndex: 1,
+
     
   },
   button2: {
     backgroundColor: "#B57BF9",
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 90,
     top: -60,
-    zIndex: 1,
+
   },
   buttonText: {
     color: "#fff",

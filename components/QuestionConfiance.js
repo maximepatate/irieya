@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import * as Font from "expo-font";
 
 const QuestionConf = () => {
   // Sample question and answer data
@@ -73,7 +74,13 @@ const QuestionConf = () => {
       {qaItems.map((item) => (
         <View key={item.id} style={styles.qaBox}>
           {expandedItems[item.id] ? (
+            <>
             <Text style={styles.answer}>{item.answer}</Text>
+            {item.id === 1 && item.image && (
+              <Image source={item.image} style={styles.image} />
+            )}
+          </>
+
           ) : (
             <Text style={styles.question}>{item.question}</Text>
           )}
@@ -91,26 +98,43 @@ const QuestionConf = () => {
   );
 };
 
+const AppWrapperOpinion = () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      'Nunito': require("../assets/fonts/NunitoRegular.ttf"),
+      "Nunito-Bold": require("../assets/fonts/NunitoBold.ttf"),
+    }).then(() => setFontLoaded(true));
+  }, []);
+
+  if (!fontLoaded) return null; // Render nothing until font is loaded
+
+  return <QuestionConf />; // Render the main component after fonts are loaded
+};
+
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
+    padding: 20,
   },
   qaBox: {
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
     backgroundColor: '#f9f9f9',
   },
   question: {
     fontSize: 16,
     marginBottom: 5,
-    fontWeight: 'bold',
+    fontFamily: "Nunito-Bold",
   },
   answer: {
     fontSize: 16,
     marginBottom: 5,
+    fontFamily: "Nunito",
   },
   button: {
     color: '#007bff',
@@ -120,18 +144,24 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#B57BF9',
     padding: 2,
-    borderRadius: 5,
+    borderRadius: 20,
     width: 80,
     alignItems: 'center',
     alignSelf:"center",
     marginTop: 10,
-    marginBottom: 20,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
+  image: {
+    width: 330, // Adjust the size as needed
+    height: 330,
+    marginTop: 10,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+  },
 });
 
-export default QuestionConf;
+export default AppWrapperOpinion;

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import * as Font from "expo-font";
 
 const QuestionsLimits = () => {
   // Sample question and answer data
@@ -62,6 +63,21 @@ const QuestionsLimits = () => {
   );
 };
 
+const AppWrapperLimiteEgalite = () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      'Nunito': require("../assets/fonts/NunitoRegular.ttf"),
+      "Nunito-Bold": require("../assets/fonts/NunitoBold.ttf"),
+    }).then(() => setFontLoaded(true));
+  }, []);
+
+  if (!fontLoaded) return null; // Render nothing until font is loaded
+
+  return <QuestionsLimits />; // Render the main component after fonts are loaded
+};
+
 const styles = StyleSheet.create({
   container: {
     padding: 20,
@@ -71,17 +87,19 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
     backgroundColor: '#f9f9f9',
   },
   question: {
     fontSize: 16,
     marginBottom: 5,
-    fontWeight: 'bold',
+    fontFamily: "Nunito-Bold",
   },
   answer: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 20,
+    fontFamily: "Nunito",
+
   },
   button: {
     color: '#007bff',
@@ -91,7 +109,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#B57BF9',
     padding: 2,
-    borderRadius: 5,
+    borderRadius: 20,
     width: 80,
     alignItems: 'center',
     alignSelf:"center",
@@ -104,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuestionsLimits;
+export default AppWrapperLimiteEgalite;

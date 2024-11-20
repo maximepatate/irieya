@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import RNPickerSelect from "react-native-picker-select";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-const Dropdown = () => {
-  const [selectedValue, setSelectedValue] = useState(null);
+const Dropdown = ({ value, onValueChange }) => {
 
   const placeholder = {
     label: "Select an option...",
@@ -20,8 +19,8 @@ const Dropdown = () => {
       <RNPickerSelect
         placeholder={placeholder}
         items={options}
-        onValueChange={(value) => setSelectedValue(value)}
-        value={selectedValue}
+        onValueChange={onValueChange}
+        value={value}
       />
     </View>
   );

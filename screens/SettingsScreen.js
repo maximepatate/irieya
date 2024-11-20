@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#B57BF9", // Blue color for the button
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "30%",
     alignItems: "center",
     left: 40,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#B57BF9", // Blue color for the button
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 220,

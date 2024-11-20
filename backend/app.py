@@ -52,6 +52,7 @@ def signup():
     name = data.get('name')
     firstName = data.get('firstName')
     pseudo = data.get('pseudo')
+    gender = data.get('gender')
 
     try:
         user = auth.create_user_with_email_and_password(email, password)
@@ -66,9 +67,9 @@ def signup():
             'email': email,
             'pseudo': pseudo,
             'password': password,
+            'gender': gender,
         })
-        print("Data saved to Firebase")
-        print("Attempting to log in user...")
+        print("Received gender:", data.get('gender'))
         login_user = auth.sign_in_with_email_and_password(email, password)
         session['user_id'] = login_user['localId']  # Set the session with user ID
         print("Session set with user ID after signup:", session['user_id'])

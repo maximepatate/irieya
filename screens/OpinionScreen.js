@@ -22,12 +22,12 @@ const OpinionScreen = ({ navigation }) => {
         }}
       >
         <TouchableOpacity
-          style={styles.logo}
+          style={styles.LogoPosition}
           onPress={() => navigation.navigate("HomePage")}
         >
           <Image
             source={require("../assets/irieya.png")}
-            style={styles.profileImg}
+            style={styles.Logo}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -46,44 +46,36 @@ const OpinionScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
-  scrollContainer: {
-    padding: 20,
-    alignItems: "center",
+
+
+  Logo: {
+    height: 100,
+    width: 100,
   },
-  qaBox: {
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    backgroundColor: "#f9f9f9",
-  },
-  profileImg: {
-    height: 80,
-    width: 80,
-    borderRadius: 40,
-  },
-  logo: {
+  LogoPosition: {
     marginBottom: 20,
-    left: -120,
-    top: 120,
+    left: -140,
+    top: 100,
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
+    fontSize: 24,
     color: "#333",
-    marginBottom: 20,
-    textTransform: "uppercase",
-    textDecorationLine: "underline",
+    lineHeight: 30,
+    letterSpacing: 1,
+    padding: 10,
+    fontFamily: "Nunito-Bold",
     left: 30,
-    top:-10,
+    top: -40,
+    zIndex: 1,
+    
   },
   button2: {
     backgroundColor: "#B57BF9",
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 90,

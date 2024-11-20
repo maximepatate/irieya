@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import * as Font from "expo-font";
 
-const MainConfidenceScreen = ({ navigation }) => {
+const MainHygiene = ({ navigation }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
@@ -26,40 +26,42 @@ const MainConfidenceScreen = ({ navigation }) => {
 
       {/* Title */}
       <Text style={[styles.title, styles.positionTitle]}>
-        La confiance en soi
+        L'hygiène féminine
       </Text>
 
       {/* Description */}
       <Text style={[styles.qaBox, styles.positionDescription]}>
-      La confiance en soi est l'habileté de croire en soi-même, de se faire confiance et d’être fière de qui nous sommes. 
-      La définition semble simple mais la pratique est beaucoup plus complexe qu’elle n’en a l’air. Les talents d’une camarade ou le physique d’une autre sur 
-      les réseaux peuvent rapidement intimider et par conséquent empêcher la confiance en soi. 
+        Bien que le vagin soit considéré comme étant une des parties du corps
+        les plus propres chez la femme de part sa capacité autonettoyante, il
+        est important de maintenir une hygiène intime sans en faire trop afin de
+        ne pas perturber l’équilibre des bonnes bactéries qui le maintiennent
+        propre et sain.
       </Text>
 
       {/* Navigation buttons */}
       <TouchableOpacity
         style={[styles.imgButton, styles.positionButton1]}
-        onPress={() => navigation.navigate("Estime")}
+        onPress={() => navigation.navigate("Regle")}
       >
-        <Image source={require("../assets/estime_de_soi.jpg")} style={styles.img} />
+        <Image source={require("../assets/hygiene.jpg")} style={styles.img} />
       </TouchableOpacity>
 
       <Text style={[styles.title2, styles.positionH]}>
-        L'estime de soi
+        Avoir une bonne{"\n"} hygiène{" "}
       </Text>
 
       <TouchableOpacity
         style={[styles.imgButton, styles.positionButton2]}
-        onPress={() => navigation.navigate("Opinion")}
+        onPress={() => navigation.navigate("Product")}
       >
         <Image
-          source={require("../assets/opinion_des_autres.jpg")}
+          source={require("../assets/produit_hygiene.jpg")}
           style={styles.img}
         />
       </TouchableOpacity>
 
       <Text style={[styles.title2, styles.positionP]}>
-      L'opinion des {"\n"}      autres{" "}
+        Les produits à {"\n"} utiliser
       </Text>
     </View>
   );
@@ -71,7 +73,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FFFFFF",
-    paddingHorizontal: 10,
   },
   Logo: {
     height: 100,
@@ -161,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainConfidenceScreen;
+export default MainHygiene;

@@ -22,6 +22,7 @@ const SignUpPage = ({ navigation }) => {
   const [name, setName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -33,6 +34,7 @@ const SignUpPage = ({ navigation }) => {
       name: name,
       firstName: firstName,
       age: age,
+      gender:gender,
     };
     fetch("https://irieya1-production.up.railway.app/signup", {
       method: "POST",
@@ -103,7 +105,10 @@ const SignUpPage = ({ navigation }) => {
         onChangeText={setPseudo}
       />
 
-      <Dropdown />
+      <Dropdown 
+        value={gender}
+        onValueChange={setGender}
+      />
 
       <TouchableOpacity style={styles.button1} onPress={handleSignUp}>
         <Text style={styles.buttonText}>créer le compte</Text>
@@ -126,6 +131,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    backgroundColor: "#FFFFFF",
+
   },
 
   textInput: {
@@ -150,23 +157,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#B57BF9", // Blue color for the button
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "30%",
     alignItems: "center",
     left: -90,
-    top: -10, // Adjust the position of the button
-    zIndex: 2,
+    top: -10,
+
+
   },
   button2: {
     backgroundColor: "#B57BF9", 
     padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     width: "32%",
     alignItems: "center",
     left: 90,
-    top: -60, 
-    zIndex: 2,
+    top: -60,
+    
+
   },
   buttonText: {
     color: "#fff",
