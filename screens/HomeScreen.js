@@ -6,55 +6,59 @@ import {
   Button,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 
 import App from "../components/navBar";
+
+const { width, height } = Dimensions.get("window"); // Get screen dimensions
+
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={[styles.regle, styles.randomPosition1]}
+        style={[styles.circle, styles.positionHygiene]}
         onPress={() => navigation.navigate("Hygiene")}
       >
         <View style={styles.profileImg}>
           <Image
             source={require("../assets/hygiene_feminine.jpg")}
-            style={styles.profileImg}
+            style={styles.image}
           />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.savoir, styles.randomPosition2]}
+        style={[styles.circle, styles.positionEquality]}
         onPress={() => navigation.navigate("SubEquality")}
       >
         <Image
           source={require("../assets/egalite.jpg")}
-          style={styles.profileImg}
+          style={styles.image}
         />
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.confidence, styles.randomPosition3]}
+        style={[styles.circle, styles.positionConfidence]}
         onPress={() => navigation.navigate("MainConfidence")}
       >
         <Image
           source={require("../assets/confiance.jpg")}
-          style={styles.profileImg}
+          style={styles.image}
         />
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.confidence, styles.randomPosition4]}
+        style={[styles.circle, styles.positionSexism]}
         onPress={() => navigation.navigate("Sexism")}
       >
         <Image
           source={require("../assets/sexisme.jpg")}
-          style={styles.profileImg}
+          style={styles.image}
         />
       </TouchableOpacity>
-      <View style={[styles.centeredImage]}>
+      <View style={[styles.centeredLogo]}>
         <Image
-          source={require("../assets/irieya.png")}
+          source={require("../assets/logo_transparent.png")}
           style={styles.logo}
         />
       </View>
@@ -70,88 +74,58 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   logo: {
-    height: 250,
-    width: 250,
+    width: width * 0.6, 
+    height: width * 0.6,  
   },
 
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
+    circle: {
+    width: width * 0.45,  
+    height: width * 0.45,  
+    borderRadius: (width * 0.45) / 2, 
+    overflow: "hidden",  
   },
 
-  textInput: {
-    textAlign: "center",
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: "60%",
+  image: {
+    width: width * 0.45,  
+    height: width * 0.45,  
   },
 
-  regle: {
-    marginLeft: 40,
-    height: 200,
-    width: 300,
-    borderRadius: 80,
-  },
-
-  profileImg: {
-    height: 160,
-    width: 160,
-    borderRadius: 80,
-  },
-
-
-
-  savoir: {
-    marginLeft: 8,
-    height: 100,
-    width: 80,
-  },
-
-  confidence: {
-    marginLeft: 8,
-    height: 80,
-    width: 80,
-    borderRadius: 40,
-  },
 
   navbar: {
     width: "100%",
     zIndex: 1,
   },
 
-  randomPosition1: {
-    top: 160, // Randomized top position
-    left: -10, // Randomized left position
+  positionHygiene: {
+    top: height * 0.1, 
+    left: width * 0.55, 
+    zIndex: 2,
+
+  },
+  positionEquality: {
+    top: height * 0.4, 
+    right: width * -0.05, 
+    zIndex: 2,
+
+  },
+  positionConfidence: {
+    top: height * 0.24, 
+    left: width * 0.55,  
     zIndex: 2,
   },
-  randomPosition2: {
-    top: 350,
-    left: 230,
+  positionSexism: {
+    top: height * -0.5,  
+    right: width * -0.05, 
     zIndex: 2,
+
   },
-  randomPosition3: {
-    top: -100,
-    left: 220,
-    zIndex: 2,
+
+  centeredLogo: {
+    position: "absolute",
+    top: height * 0.35,
+    left: width * 0.2, 
   },
-  randomPosition4: {
-    top: 180,
-    left: 30,
-    zIndex: 2,
-  },
-  centeredImage: {
-    top: -150,
-    left: 80,
-    zIndex: 2,
-  },
-  bubbleText: {
-    fontSize: 12,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-  },
+
 });
 
 export default HomeScreen;

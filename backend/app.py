@@ -32,13 +32,20 @@ def login():
     try:
         user = auth.sign_in_with_email_and_password(email, password)
         session['user_id'] = user['localId']
+        id_token = user.get('idToken')  # Firebase token
         print("Session data after login:", session)  
         print("User ID after login:", session.get("user_id"))  
-        
+        print("User ID Token:", id_token)
+        print("User object from Firebase:", user)
 
-        return jsonify({"status": "success", "user": user}), 200
+
+
+        return jsonify({"status": "success", "user": user, "token": id_token}), 200
     except Exception as e:
-        return jsonify({"status": "fail", "message": str(e)}), 401
+        error_message = str(e)
+        print("Error:", error_message)
+
+        return jsonify({"status": "fail", "message": "mot de passe incorrect ou e-mail incorrect"}), 401
 
 
 @app.route('/signup', methods=['POST'])
@@ -69,22 +76,27 @@ def signup():
             'password': password,
             'gender': gender,
         })
-        print("Received gender:", data.get('gender'))
         login_user = auth.sign_in_with_email_and_password(email, password)
         session['user_id'] = login_user['localId']  # Set the session with user ID
+        id_token = login_user['idToken']
         print("Session set with user ID after signup:", session['user_id'])
 
-        return jsonify({"status": "success", "user": user}), 200
+        return jsonify({"status": "success", "user": user, "token": id_token}), 200
     
     except Exception as e:
         error_message = str(e)
         print("Error:", error_message)
+
+        # Match Firebase error codes to user-friendly messages
         if 'EMAIL_EXISTS' in error_message:
-            return jsonify({"status": "fail", "message": "Email already exists."}), 400
+            return jsonify({"status": "fail", "message": "Un compte avec cet email existe déjà."}), 400
         elif 'WEAK_PASSWORD' in error_message:
-            return jsonify({"status": "fail", "message": "Password is too weak."}), 400
+            return jsonify({"status": "fail", "message": "Le mot de passe doit comporter au moins 6 caractères."}), 400
+        elif 'INVALID_EMAIL' in error_message:
+            return jsonify({"status": "fail", "message": "Veuillez saisir une adresse mail valide."}), 400
         else:
-            return jsonify({"status": "fail", "message": "An error occurred: " + error_message}), 500
+            return jsonify({"Une erreur inattendue s'est produite. Veuillez réessayer."}), 500
+
 
 
 @app.route('/profile', methods=['GET'])
@@ -128,6 +140,16 @@ def update_profile():
         print(f"Error during profile update: {error_message}") 
         return jsonify(error_message), 500
 
+@app.route('/verify-token', methods=['POST'])
+def verify_token():
+    data = request.get_json()
+    token = data.get('token')
+    try:
+        user_info = auth.get_account_info(token)
+        user_id = user_info['users'][0]['localId']
+        return jsonify({"status": "success", "user_id": user_id}), 200
+    except Exception as e:
+        return jsonify({"status": "fail", "message": str(e)}), 401
 
 
 

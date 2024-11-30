@@ -11,8 +11,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import Dropdown from "../components/dropDown";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignUpPage = ({ navigation }) => {
@@ -26,7 +25,8 @@ const SignUpPage = ({ navigation }) => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
+
     const data = {
       email: email,
       password: password,
@@ -36,27 +36,42 @@ const SignUpPage = ({ navigation }) => {
       age: age,
       gender:gender,
     };
-    fetch("https://irieya1-production.up.railway.app/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 'success') {
-          setSuccessMessage('Sign-up successful!');
-          setError('');
-          navigation.navigate('HomePage'); // Redirect after successful sign-up
-        } else if (data.message) {
-          setError(data.message);
-          setSuccessMessage('');
-          Alert.alert(data.message)
-        
+    try {
+      const response = await fetch("https://irieya1-production.up.railway.app/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.status === "success") {
+        setSuccessMessage("Sign-up successful!");
+        setError("");
+
+        if (responseData.token) {
+          // Save the token to AsyncStorage
+          await AsyncStorage.setItem("userToken", responseData.token);
+          console.log("Token saved successfully.");
+          navigation.navigate("HomePage"); // Redirect to HomePage
+        } else {
+          alert("Sign-up succeeded, but no token received.");
         }
-      })
-  };
+      } else if (responseData.message) {
+        setError(responseData.message);
+        setSuccessMessage("");
+
+        // Display user-friendly error message
+        Alert.alert("Sign-up Error", responseData.message);
+    }
+  } catch (error) {
+    console.error("Error during sign-up:", error);
+    Alert.alert("Error", "An unexpected error occurred. Please try again.");
+  }
+};
+
 
   return (
     <View style={styles.container}>

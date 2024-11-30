@@ -10,6 +10,9 @@ import {
   Image,
 } from "react-native";
 import App from "../components/navBar";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Font from "expo-font";
+
 
 const SettingsScreen = ({ userId, navigation, userToken }) => {
   const [name, setName] = useState("");
@@ -18,6 +21,14 @@ const SettingsScreen = ({ userId, navigation, userToken }) => {
   const [email, setEmail] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [password, setPassword] = useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem("userToken"); // Remove token
+    navigation.navigate("Connect"); // Redirect to login page
+  };
+
+
 
   // Fetch user profile when component mounts
   useEffect(() => {
@@ -75,8 +86,23 @@ const SettingsScreen = ({ userId, navigation, userToken }) => {
       });
   };
 
+  useEffect(() => {
+    Font.loadAsync({
+      'Nunito': require("../assets/fonts/NunitoRegular.ttf"),
+      "Nunito-Bold": require("../assets/fonts/NunitoBold.ttf"),
+    }).then(() => setFontLoaded(true));
+  }, []);
+
+  if (!fontLoaded) return null; // Render nothing until the font is loaded
+
+
   return (
     <View style={styles.container}>
+
+      <Text style={[styles.title, styles.positionTitle]}>
+        Réglage
+      </Text>
+
       <TouchableOpacity
         style={styles.logo}
         onPress={() => navigation.navigate("HomePage")}
@@ -126,7 +152,7 @@ const SettingsScreen = ({ userId, navigation, userToken }) => {
       />
       <TouchableOpacity
         style={styles.button1}
-        onPress={() => navigation.navigate("Connect")}
+        onPress={handleLogout}
       >
         <Text style={styles.buttonText}>Se déconnecter</Text>
       </TouchableOpacity>
@@ -174,6 +200,25 @@ const styles = StyleSheet.create({
     zIndex:1
 
   },
+  title: {
+    fontSize: 24,
+    color: "#333",
+    lineHeight: 30,
+    letterSpacing: 1,
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    fontFamily: "Nunito-Bold",
+  },
+
+  positionTitle: {
+    position: "absolute",
+    top: 100,
+    left: 145,
+  },
+
   button1: {
     backgroundColor: "#B57BF9", // Blue color for the button
     padding: 10,

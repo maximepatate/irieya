@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from "react-native";
 import * as Font from "expo-font";
+
+const { width, height } = Dimensions.get("window"); // Get screen dimensions
 
 
 const SubRegle = ({ navigation }) => {
@@ -79,14 +81,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   Logo: {
-    height: 100,
-    width: 100,
+    height: height * 0.135, 
+    width: height * 0.135, 
   },
 
   positionLogo: {
     position: "absolute",
-    top: 70,
-    left: 20,
+    top: height * 0.07, 
+    left: width * 0.05,
   },
   qaBox: {
     marginBottom: 10,
@@ -102,17 +104,13 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     letterSpacing: 1,
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
     fontFamily: "Nunito-Bold",
   },
 
   img: {
-    height: 160,
-    width: 160,
-    borderRadius: 80,
+    height: height * 0.18,
+    width: height * 0.18,  
+    borderRadius: (height * 0.18) / 2,  
   },
 
   title2: {
@@ -121,10 +119,6 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     letterSpacing: 1,
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
     fontFamily: "Nunito-Bold",
   },
 
@@ -146,37 +140,41 @@ const styles = StyleSheet.create({
 
   positionButton1: {
     position: "absolute",
-    top: 370,
-    left: 20,
+    top: height * 0.47,  
+    left: width * 0.05,  
   },
   PositionTitle1: {
     position: "absolute",
-    top: 420,
-    left: 200,
+    top: height * 0.54, 
+    left: width * 0.47,  
+    textAlign: "center",
   },
 
 
   positionButton2: {
     position: "absolute",
-    top: 540,
-    left: 230,
+    top: height * 0.65,  
+    right: width * 0.05, 
   },
   PositionTitle2: {
     position: "absolute",
-    top: 590,
-    left: 30,
+    top: height * 0.68, 
+    left: width * 0.1,  
+    textAlign: "center",
   },
 
 
   positionButton3: {
     position: "absolute",
-    top: 700,
-    left: 20,
+    top: height * 0.8,  
+    left: width * 0.05,  
   },
+
   PositionTitle3: {
     position: "absolute",
-    top: 750,
-    left: 190,
+    top: height * 0.86,  
+    left: width * 0.445,  
+    textAlign: "center",
   },
 
 

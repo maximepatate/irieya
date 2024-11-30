@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   Text,
@@ -7,48 +8,69 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert
 } from "react-native";
 
 const ConnectPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const data = {
       email: email,
       password: password,
     };
-
-    fetch("https://irieya1-production.up.railway.app/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.status === 204) {
-          // No Content
-          return null;
-        }
-        return response.json(); // Parse JSON only if response is not empty
-      })
-      .then((data) => {
-        if (data) {
-          if (data.status === "success") {
-            navigation.navigate("HomePage");
-          } else {
-            alert("Login failed: " + data);
-          }
-        } else {
-          console.log("No content received");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Error: " + error.message);
+  
+    try {
+      const response = await fetch("https://irieya1-production.up.railway.app/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
+  
+      // Check if response is valid JSON
+      let responseData;
+      const contentType = response.headers.get("Content-Type");
+      if (contentType && contentType.includes("application/json")) {
+        responseData = await response.json();
+      } else {
+        const textData = await response.text(); // Read as text for debugging
+        console.error("Unexpected response format:", textData);
+        alert("Unexpected response from server. Please try again.");
+        return;
+      }
+  
+      if (!response.ok) {
+        alert("Login failed: " + (responseData.message || "Unknown error"));
+        return;
+      }
+  
+      console.log("Login response:", responseData);
+  
+      if (responseData.status === "success") {
+        // Save the token in AsyncStorage
+        if (responseData.token) {
+          await AsyncStorage.setItem("userToken", responseData.token);
+          console.log("Token saved successfully.");
+          navigation.navigate("HomePage"); // Navigate to home page
+        } else {
+          alert("Login succeeded, but no token received.");
+        }
+      } else if (responseData.message) {
+        setError(responseData.message);
+        setSuccessMessage("");
+
+        // Display user-friendly error message
+        Alert.alert("Sign-up Error", responseData.message);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Error: " + error.message);
+    }
   };
+  
 
   return (
     <View style={styles.container}>

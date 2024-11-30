@@ -27,6 +27,7 @@ import SexismScreen from "./screens/MainSexismScreen";
 import EstimePage from "./screens/EstimeScreen";
 import OpinionScreen from "./screens/OpinionScreen";
 import MainConfidenceScreen from "./screens/MainConfidenceScreen";
+import SplashScreen from "./screens/SplashScreen";
 
 
 
@@ -38,7 +39,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen
         name="Connect"
         component={ConnectPage}
